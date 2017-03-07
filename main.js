@@ -30,4 +30,29 @@ const populateEmployees = () => {
         )`)
     })
 }
-populateEmployees()
+// populateEmployees()
+
+// db.get(`SELECT * FROM employees`, (err, row) => {
+//     console.log(row)
+// })
+
+//db.all returns an array of results from the sql query
+// db.all(`SELECT * FROM employees ORDER BY UPPER(first)ASC`, (err, allRows) => {    
+//     allRows.forEach(( {id, first, last, gender, salary} ) => {
+//     console.log(`${id} ${first} ${last} Gender:${gender}, Salary:${salary}`)
+//     })
+
+// })
+
+db.all(`SELECT * FROM employees ORDER BY salary ASC WHERE employees salary 50000`, (err, allRows) => {
+    allRows.forEach(( {first, last, salary} ) => {
+        console.log(`${first} ${last} Salary:${salary}`)
+    })
+})
+
+//better for larger data structures 
+// console.log(new Date().getMilliseconds())
+// db.each(`SELECT * FROM employees`, (err, {id, first, last, gender, salary}) => {
+//     console.log(`${id} ${first} ${last} Gender:${gender}, Salary:${salary}`)
+// })
+
