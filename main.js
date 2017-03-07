@@ -44,7 +44,7 @@ const populateEmployees = () => {
 
 // })
 
-db.all(`SELECT * FROM employees ORDER BY salary ASC WHERE employees salary 50000`, (err, allRows) => {
+db.all(`SELECT * FROM employees WHERE salary > 50000 GROUP BY first`, (err, allRows) => {
     allRows.forEach(( {first, last, salary} ) => {
         console.log(`${first} ${last} Salary:${salary}`)
     })
