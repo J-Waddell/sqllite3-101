@@ -56,3 +56,6 @@ db.all(`SELECT * FROM employees WHERE salary > 50000 GROUP BY first`, (err, allR
 //     console.log(`${id} ${first} ${last} Gender:${gender}, Salary:${salary}`)
 // })
 
+//things learned:
+//1. error handling
+//2. modularize create data         
