@@ -12,7 +12,7 @@ const dropEmployees = () => {
 
 //creates employee table if it does not exist
 //will not execute if the table exists
-db.run("CREATE TABLE IF NOT EXISTS employees (id INT, first TEXT, last TEXT, salary INT, gender TEXT)")
+db.run("CREATE TABLE IF NOT EXISTS employees (id INT, first TEXT, last TEXT, salary INT, gender TEXT, jobTitle TEXT, address TEXT)")
 
 
 
@@ -26,7 +26,9 @@ const populateEmployees = () => {
             "${each.firstName}",
             "${each.lastName}",
             ${each.salary},
-            "${each.gender}"
+            "${each.gender}",
+            "${each.jobTitle}",
+            "${each.address}"
         )`)
     })
 }
@@ -38,16 +40,37 @@ const populateEmployees = () => {
 
 //db.all returns an array of results from the sql query
 // db.all(`SELECT * FROM employees ORDER BY UPPER(first)ASC`, (err, allRows) => {    
-//     allRows.forEach(( {id, first, last, gender, salary} ) => {
-//     console.log(`${id} ${first} ${last} Gender:${gender}, Salary:${salary}`)
+//     allRows.forEach(( {id, first, last, gender, salary, jobTitle, address} ) => {
+//     console.log(`${id} ${first} ${last} Gender:${gender} Salary:${salary} ${jobTitle} ${address}`)
 //     })
 
 // })
 
-db.all(`SELECT * FROM employees WHERE salary > 50000 GROUP BY first`, (err, allRows) => {
-    allRows.forEach(( {first, last, salary} ) => {
-        console.log(`${first} ${last} Salary:${salary}`)
-    })
+//returns names and job title
+// db.all(`SELECT * FROM employees`, (err, allRows) => {
+//     allRows.forEach(( {first, last, jobTitle} ) => {
+//         console.log(`${first} ${last} ${jobTitle}`)
+//     })
+// })
+
+//returns first last and address
+// db.all(`SELECT * FROM employees`, (err, allRows) => {
+//     allRows.forEach(( {first, last, address} ) => {
+//         console.log(`${first} ${last}, Address: ${address}`)
+//     })
+// })
+
+// db.all(`SELECT * FROM employees WHERE salary > 50000 GROUP BY first`, (err, allRows) => {
+//     allRows.forEach(( {first, last, salary} ) => {
+//         console.log(`${first} ${last} Salary:${salary}`)
+//     })
+// })
+
+//retrieving employees by certain job title
+db.all(`SELECT * FROM employees WHERE jobTitle is "Regional Manager"`, (err, allRows) => {
+    allRows.forEach(( {first, last, jobTitle} ) => {
+        console.log(`${first} ${last} ${jobTitle}`)
+    })  
 })
 
 //better for larger data structures 
